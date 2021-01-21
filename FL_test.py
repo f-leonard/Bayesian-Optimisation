@@ -71,7 +71,7 @@ bo = BayesianOptimization(
 
 bo.maximize(n_iter=4, acq="ucb", xi= 0, kappa=1, init_points=3)
 
-#plot_bo(f, bo)
+plot_bo(f, bo)
 
 #ei prefer exploration xi = 0
 bo = BayesianOptimization(
@@ -81,7 +81,7 @@ bo = BayesianOptimization(
     random_state=4,
 )
 
-bo.maximize(n_iter=4, acq="ei", xi=0.0001, init_points = 3)
+bo.maximize(n_iter=4, acq="ei", xi=0.01, init_points = 3)
 
 plot_bo(f, bo)
 

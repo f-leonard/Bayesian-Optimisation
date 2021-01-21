@@ -56,7 +56,7 @@ def plot_bo(f, bo):
     plt.scatter(bo.space.params.flatten(), bo.space.target, c="red", s=50, zorder=10)
     plt.xlabel('Clamping pressure (bar)')
     plt.ylabel('Lap Shear Strength(N)')
-    plt.savefig(fname = 'POI')
+    plt.savefig(fname = input('Enter plot name: '))
     plt.show()
 
 #ucb
@@ -95,4 +95,4 @@ bo = BayesianOptimization(
 
 bo.maximize(n_iter=4, acq="poi", xi=0.0001, init_points = 3)
 
-#plot_bo(f, bo)
+plot_bo(f, bo)

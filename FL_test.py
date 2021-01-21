@@ -1,7 +1,7 @@
-#Testing if this works online
+
 import numpy as np
 import matplotlib.pyplot as plt
-from bayesian_optimization import BayesianOptimization
+from bayesian_optimization import BayesianOptimization, UtilityFunction
 from Environment import environment, environment_array
 
 data = []

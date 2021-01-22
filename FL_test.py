@@ -1,7 +1,7 @@
 #commit test
 import numpy as np
 import matplotlib.pyplot as plt
-from bayesian_optimization import BayesianOptimization, UtilityFunction
+from bayesian_optimization import BayesianOptimization, UtilityFunction, DiscreteBayesianOptimization
 from Environment import environment, environment_array
 
 data = []
@@ -11,10 +11,10 @@ h = []
 j = []
 
 
-cvalues=np.linspace(2,3,1000)
+cvalues=np.linspace(2,4,1000)
 avalues = np.linspace(1000,1500,len(cvalues))
 bvalues=np.linspace(40, 65, len(cvalues))
-cdata=np.linspace(2, 3, len(cvalues))
+cdata=np.linspace(2, 4, len(cvalues))
 bdata=np.linspace(40, 65, len(cvalues))
 
 for i in range(len(bdata)):
@@ -34,21 +34,21 @@ plt.ylabel('Lap Shear Strength (N)')
 plt.xlabel('Clamping pressure (bar)')
 data=np.round(data)
 plt.plot(cdata,data)
+plt.show()
 
 
 plt.show()
-
+b = bvalues
+c = cvalues
 np.random.seed(42)
-xs = np.linspace(2, 4, 1000)
+
 def f(x):
     return environment_array(x)
-plt.plot(xs,f(xs))
-plt.show()
 
 def plot_bo(f, bo):
     x = np.linspace(2, 4, 1000)
     mean, sigma = bo._gp.predict(x.reshape(-1, 1), return_std=True)
-
+    #error arrising here determining distance between each pair of two collections of inputs
     plt.figure(figsize=(16, 9))
     plt.plot(x, f(x))
     plt.plot(x, mean)
@@ -62,18 +62,21 @@ def plot_bo(f, bo):
 #ucb
 #Prefer exploitation kappa = 1
 #Prefer exploration (kappa = 10)
+
 bo = BayesianOptimization(
     f=f,
-    pbounds={"x": (2, 4)},
+    pbounds={'x':(2,4)},
     verbose=2,
     random_state=4,
 )
 
-bo.maximize(n_iter=4, acq="ucb", xi= 0, kappa=1, init_points=3)
+bo.maximize(n_iter=4, acq="ucb", xi= 0, kappa=1, init_points=3, alpha= 1e-3)
 
 plot_bo(f, bo)
 
+
 #ei prefer exploration xi = 0
+
 bo = BayesianOptimization(
     f=f,
     pbounds={"x": (2, 4)},

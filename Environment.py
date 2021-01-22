@@ -74,5 +74,3 @@ def environment_array(x):
 
 
 
-
-

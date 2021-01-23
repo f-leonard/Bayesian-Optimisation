@@ -4,17 +4,17 @@ from Environment import environment, environment_array
 import matplotlib.pyplot as plt
 from matplotlib import gridspec
 
-def target(x):
-    return environment_array(x)
+def target(c):
+    return environment_array(c)
 
-x = np.linspace(2, 4, 1000).reshape(-1,1)
-y = target(x)
+c = np.linspace(2, 4, 1000).reshape(-1,1)
+y = target(c)
 plt.title('Function to be optimised')
 plt.xlabel('Clamping pressure (bar)')
 plt.ylabel('Lap shear strength (N)')
-plt.plot(x, y);
+plt.plot(c, y);
 plt.show()
-optimizer = BayesianOptimization(target, {'x': (2, 4)}, random_state=27)
+optimizer = BayesianOptimization(target, {'c': (2, 4)}, random_state=27)
 
 optimizer.maximize(init_points = 2, n_iter = 0, kappa = 5)
 
@@ -38,7 +38,7 @@ def plot_gp(optimizer, x, y):
     axis = plt.subplot(gs[0])
     acq = plt.subplot(gs[1])
 
-    x_obs = np.array([[res["params"]["x"]] for res in optimizer.res])
+    x_obs = np.array([[res["params"]["c"]] for res in optimizer.res])
     y_obs = np.array([res["target"] for res in optimizer.res])
 
     mu, sigma = posterior(optimizer, x_obs, y_obs, x)
@@ -69,19 +69,19 @@ def plot_gp(optimizer, x, y):
     axis.legend(loc=2, bbox_to_anchor=(1.01, 1), borderaxespad=0.)
     acq.legend(loc=2, bbox_to_anchor=(1.01, 1), borderaxespad=0.)
 
-plot_gp(optimizer, x, y)
+plot_gp(optimizer, c, y)
 
 optimizer.maximize(init_points=0, n_iter=1)
-plot_gp(optimizer, x, y)
+plot_gp(optimizer, c, y)
 
 optimizer.maximize(init_points=0, n_iter=1)
-plot_gp(optimizer, x, y)
+plot_gp(optimizer, c, y)
 
 optimizer.maximize(init_points=0, n_iter=1)
-plot_gp(optimizer, x, y)
+plot_gp(optimizer, c, y)
 
 optimizer.maximize(init_points=0, n_iter=1)
-plot_gp(optimizer, x, y)
+plot_gp(optimizer, c, y)
 
 optimizer.maximize(init_points=0, n_iter=1)
-plot_gp(optimizer, x, y)
+plot_gp(optimizer, c, y)

@@ -42,14 +42,24 @@ b = bvalues
 c = cvalues
 np.random.seed(42)
 
+
 def f(x):
     return environment_array(x)
+'''A minimum of 2 initial guesses is required to kickstart the optimization process these may be
+ random or user defined.'''
+optimizer = BayesianOptimization(f, {'x':(2,4)},random_state=27)
+
+def posterior(optimizer, x_obs, y_obs, grid):
+    optimizer._gp.fit(x_obs,y_obs)
+    mu,sigma = optimizer._gp.predict(grid, return_std = True)
+    return mu, sigma
 
 def plot_bo(f, bo):
+    
     x = np.linspace(2, 4, 1000)
     mean, sigma = bo._gp.predict(x.reshape(-1, 1), return_std=True)
     #error arrising here determining distance between each pair of two collections of inputs
-    plt.figure(figsize=(16, 9))
+    plt.figure(figsize=(16, 10))
     plt.plot(x, f(x))
     plt.plot(x, mean)
     plt.fill_between(x, mean + sigma, mean - sigma, alpha=0.1)

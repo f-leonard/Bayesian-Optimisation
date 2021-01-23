@@ -9,8 +9,9 @@ def target(x):
 
 x = np.linspace(2, 4, 1000).reshape(-1,1)
 y = target(x)
-print(x,y)
-
+plt.title('Function to be optimised')
+plt.xlabel('Clamping pressure (bar)')
+plt.ylabel('Lap shear strength (N)')
 plt.plot(x, y);
 plt.show()
 optimizer = BayesianOptimization(target, {'x': (2, 4)}, random_state=27)
@@ -70,17 +71,17 @@ def plot_gp(optimizer, x, y):
 
 plot_gp(optimizer, x, y)
 
-optimizer.maximize(init_points=0, n_iter=1, kappa=5)
+optimizer.maximize(init_points=0, n_iter=1)
 plot_gp(optimizer, x, y)
 
-optimizer.maximize(init_points=0, n_iter=1, kappa=5)
+optimizer.maximize(init_points=0, n_iter=1)
 plot_gp(optimizer, x, y)
 
-optimizer.maximize(init_points=0, n_iter=1, kappa=5)
+optimizer.maximize(init_points=0, n_iter=1)
 plot_gp(optimizer, x, y)
 
-optimizer.maximize(init_points=0, n_iter=1, kappa=5)
+optimizer.maximize(init_points=0, n_iter=1)
 plot_gp(optimizer, x, y)
 
-optimizer.maximize(init_points=0, n_iter=1, kappa=5)
+optimizer.maximize(init_points=0, n_iter=1)
 plot_gp(optimizer, x, y)

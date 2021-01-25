@@ -6,14 +6,16 @@ from matplotlib import gridspec
 
 def target(c):
     return environment_array(c)
-
+b = np.linspace(40,65,1000)
 c = np.linspace(2, 4, 1000).reshape(-1,1)
 y = target(c)
 plt.title('Function to be optimised')
 plt.xlabel('Clamping pressure (bar)')
 plt.ylabel('Lap shear strength (N)')
 plt.plot(c, y);
+plt.savefig('Function to be optimised')
 plt.show()
+
 optimizer = BayesianOptimization(target, {'c': (2, 4)}, random_state=27)
 
 optimizer.maximize(init_points = 2, n_iter = 0, kappa = 5)
@@ -52,7 +54,7 @@ def plot_gp(optimizer, x, y):
 
     axis.set_xlim((2, 4))
     axis.set_ylim((None, None))
-    axis.set_ylabel('f(x)', fontdict={'size': 20})
+    axis.set_ylabel('Lap Shear Strength (N)', fontdict={'size': 20})
     axis.set_xlabel('x', fontdict={'size': 20})
 
     utility_function = UtilityFunction(kind="ei", kappa=5, xi=0.001)

@@ -1,10 +1,7 @@
-#ENVIRONMENT THAT ACCEPTS 4 INPUTS AND RETURNS THE STRENGTH OF THE JOINT
-
-
 import numpy as np
 
 
-def environment(c):
+def environment(b,c):
 
     def relu(x):
         return np.maximum(0, x)
@@ -38,7 +35,7 @@ def environment(c):
     layer3 = np.reshape(layer3, (-1, 1))
     d = 0.1
     a = 1
-    b = 1
+
 
 
     inputs = np.array([a,b,c,d])
@@ -58,19 +55,16 @@ def environment(c):
     result = np.matmul(result, layer3)
 
     return result
-def array_input(c):
+def array_input(b,c):
     i = 0
     result_list = []
 
     while i < 1000:
-        result_list.append(float(environment((c[i]-2)/2)))
+        result_list.append(float(environment(((b[i]-45)/20),(c[i]-2)/2)))
         i = i + 1
     return result_list
-def environment_array(c):
+def environment_array(b,c):
 
-    return array_input(c) if type(c)== np.ndarray else float(environment((c-2)/2))
+    return array_input(b,c) if type(c)== np.ndarray else float(environment(((b-45)/20),((c-2)/2)))
 
-
-
-
-
+print(environment_array(65,4))

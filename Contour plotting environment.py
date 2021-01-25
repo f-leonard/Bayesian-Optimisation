@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from TwoDimEnvironmentbc import environment_array
 from TwoDimEnvironmentac import acenvironment_array
+from TwoDimEnvironmentab import abenvironment_array
 
 f = np.zeros((100,100))
 c = np.linspace(2,4,100)
@@ -52,4 +53,28 @@ plt.yticks(list(np.linspace(0,100,4)),([1000,2000,3000,4000]))
 plt.colorbar()
 plt.show()
 plt.savefig('Welding energy vs Clamping pressure')
+print(np.max(f))
+
+h = np.zeros((100,100))
+a = np.linspace(1000,4000,100)
+for i in range(100):
+    for j in range(100):
+        f[i][j]=abenvironment_array(a[i], b[j])
+
+
+print(f)
+k = []
+while i < 3000:
+    k.append(i)
+    i = i +100
+
+
+plt.contourf(f,levels = k)
+plt.xlabel('Welding Energy J')
+plt.ylabel('Vibration Amplitude um')
+plt.xticks(list(np.linspace(0,100,4)), [1000,2000,3000,4000])
+plt.yticks(list(np.linspace(0,100,6)),([40,45,50,55,60,65]))
+plt.colorbar()
+plt.show()
+plt.savefig('Vibration amplitude vs Clamping pressure')
 print(np.max(f))

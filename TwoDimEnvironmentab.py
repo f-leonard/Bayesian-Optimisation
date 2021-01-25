@@ -1,7 +1,7 @@
 import numpy as np
 
 
-def environment(a,c):
+def environment(a,b):
 
     def relu(x):
         return np.maximum(0, x)
@@ -34,7 +34,7 @@ def environment(a,c):
     layer3 = np.array([5.972767, 1.9369528, 3.6234467, 4.8388968, 4.0436954, 2.59104, 5.000915, -8.6252165])
     layer3 = np.reshape(layer3, (-1, 1))
     d = 0.1
-    b = 1
+    c = 1
 
 
     inputs = np.array([a,b,c,d])
@@ -54,14 +54,15 @@ def environment(a,c):
     result = np.matmul(result, layer3)
 
     return result
-def acarray_input(a,c):
+def abarray_input(a,b):
     i = 0
     result_list = []
 
     while i < 1000:
-        result_list.append(float(environment(((a[i]-1000)/2500),(c[i]-2)/2)))
+        result_list.append(float(environment(((a[i]-1000)/2500),(b[i]-45)/20)))
         i = i + 1
     return result_list
-def acenvironment_array(a,c):
+def abenvironment_array(a,b):
 
-    return acarray_input(a,c) if type(c)== np.ndarray else float(environment(((a-1000)/2500),((c-2)/2)))
+    return abarray_input(a,b) if type(b)== np.ndarray else float(environment(((a-1000)/2500),((b-45)/20)))
+print(abenvironment_array(4000,65))

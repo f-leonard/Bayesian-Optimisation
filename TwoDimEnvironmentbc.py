@@ -67,4 +67,4 @@ def environment_array(b,c):
 
     return array_input(b,c) if type(c)== np.ndarray else float(environment(((b-45)/20),((c-2)/2)))
 
-print(environment_array(65,4))
+

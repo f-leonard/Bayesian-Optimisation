@@ -187,9 +187,9 @@ class BayesianOptimization(Observable):
     def maximize(self,
                  init_points=5,
                  n_iter=25,
-                 acq='ucb',
+                 acq='ei',
                  kappa=2.576,
-                 xi=0.0,
+                 xi=0.05,
                  **gp_params):
         """Mazimize your function"""
         self._prime_subscriptions()
@@ -227,7 +227,7 @@ class BayesianOptimization(Observable):
     def array_like_constraints(self):
         '''
         Takes list of logical constraints in terms of space keys,
-        and replaces the constraints in terms of array indicies. 
+        and replaces the constraints in terms of array indicies.
         This allows direct evaluation in the acquisition function.
         Parameters
         ----------
@@ -274,9 +274,9 @@ class BayesianOptimization(Observable):
 
 class DiscreteBayesianOptimization(BayesianOptimization):
     '''
-    Optimization object by default performs batch optimization of discrete parameters. 
-    When using the open form optimizer (i.e. writing loops manually) the suggested parameters handled as lists of dicts. 
-    
+    Optimization object by default performs batch optimization of discrete parameters.
+    When using the open form optimizer (i.e. writing loops manually) the suggested parameters handled as lists of dicts.
+
     '''
 
     def __init__(self, f, prange, random_state=None, verbose=2, constraints=[]):
@@ -294,7 +294,7 @@ class DiscreteBayesianOptimization(BayesianOptimization):
         #nu controls 'The smoothness of the learned function. The smaller the nu the less smooth the learned function is
         #nu= inf the kernel becomes equivalent to the RBF kernel. And for nu = 0.5 to the absolute exponential kernel
         #nu = 1.5 once differentiable functions
-        # nu = 2.5 (twice differentiable functions)
+        #nu = 2.5 (twice differentiable functions)
         #If you pick a value outside of these the computational cost will be approx 10x larger as you will have to
         #evaluate the modified Bessel function. nu is kept fixed to its original value and not optimised
         kernel = Matern(length_scale=length_scale,
@@ -346,8 +346,8 @@ class DiscreteBayesianOptimization(BayesianOptimization):
 
     def constrained_rng(self, n_points, bin=False):
         '''
-        Random number generator that deals more effectively with highly constrained spaces. 
-        
+        Random number generator that deals more effectively with highly constrained spaces.
+
         Works only off single constraint of form L - sum(x_i) >=0
         Where the lower bound of each x_i is 0.
 
@@ -485,17 +485,17 @@ class DiscreteBayesianOptimization(BayesianOptimization):
 
     def suggest(self, utility_function, sampler='greedy', fit_gp=True, **kwargs):
         """
-        Potential keywords 
+        Potential keywords
         ------------------
         n_acqs: Integer number of acquisitions to take from acquisition function ac.
         n_warmup: number of times to randomly sample the aquisition function
         n_iter: number of times to run scipy.minimize
         multiprocessing: number of cores for multiprocessing of scipy.minimize
         n_slice: number of samples in slice sampling
-    
+
         Returns
         -------
-        list length n_acqs of dictionary style parameters 
+        list length n_acqs of dictionary style parameters
         """
         if len(self._space) == 0:
             if self.constraints:

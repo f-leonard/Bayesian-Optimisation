@@ -1,12 +1,7 @@
 from bayesian_optimization import UtilityFunction, BayesianOptimization
 import numpy as np
 from TwoDimEnvironmentbc import environment_array
-import matplotlib
 import matplotlib.pyplot as plt
-from matplotlib import cm
-import pandas as pd
-
-from matplotlib import gridspec
 
 
 f = np.zeros((100,100))
@@ -32,7 +27,7 @@ plt.yticks(list(np.linspace(0,100,6)),([40,45,50,55,60,65]))
 plt.colorbar()
 plt.title('Function to be optimised')
 plt.savefig('2D function for optimisation')
-plt.show()
+#plt.show()
 print(np.max(f))
 
 def black_box_function(x, y):
@@ -42,7 +37,7 @@ pbounds = {'x': (45, 65), 'y': (2.2, 3.8)}
 optimizer = BayesianOptimization(
     f=black_box_function,
     pbounds=pbounds,
-    verbose=2, # verbose = 1 prints only when a maximum is observed, verbose = 0 is silent
+    verbose=1, # verbose = 1 prints only when a maximum is observed, verbose = 0 is silent
     random_state=1
 )
 
@@ -50,7 +45,11 @@ optimizer.maximize(
     init_points=2,
     n_iter=10,
 )
-
-print(optimizer.max)
-
+x = []
+y = []
+for res in enumerate(optimizer.res):
+    x.append(float(res[1].get('params').get('x')))
+    y.append(float(res[1].get('params').get('y')))
+print(x)
+print(y)
 

@@ -28,10 +28,10 @@ optimizer.maximize(
     n_iter=10,
 )
 
-x = []
-y = []
+xlist = []
+ylist = []
 for res in enumerate(optimizer.res):
-    x.append(float(res[1].get('params').get('x')))
-    y.append(float(res[1].get('params').get('y')))
-print(x)
-print(y)
+    xlist.append(float(res[1].get('params').get('x')))
+    ylist.append(float(res[1].get('params').get('y')))
+print(xlist)
+print(ylist)

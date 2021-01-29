@@ -2,6 +2,8 @@ from bayesian_optimization import UtilityFunction, BayesianOptimization
 import numpy as np
 from TwoDimEnvironmentbc import environment_array
 import matplotlib.pyplot as plt
+from matplotlib.animation import FuncAnimation
+from matplotlib import rcParams
 
 def black_box_function(x, y):
     return environment_array(x,y)
@@ -35,22 +37,33 @@ for i in range(100):
         f[i][j]=environment_array(x[i], y[j])
 
 plt.contourf(x_1, y_1, f)
+plt.figure(1)
+fig = plt.figure(1)
+y = xlist
+x = ylist
+graph, = plt.plot([], [], 'x')
+def animate(i):
+    graph.set_data(x[:i+1], y[:i+1])
+    return graph
+
+ani = FuncAnimation(fig, animate, frames=12, interval=500)
 
 plt.colorbar()
 
-for i in range(12):
+#for i in range(12):
 
-    plt.annotate('x'+str(i+1),(ylist[i],(xlist[i])))
+    #plt.annotate('x'+str(i+1),(ylist[i],(xlist[i])))
 print(np.max(f))
 plt.xlim((2,4))
 plt.ylim((40,65))
 plt.xlabel('Clamping Pressure (Bar)')
 plt.ylabel('Vibration Amplitude (micrometres)')
 
+ani.save('GIF of Process.gif', writer = 'imagemagick', fps = 5 )
 
 plt.show()
 
 
-plt.savefig('2D function for optimisation')
+
 
 

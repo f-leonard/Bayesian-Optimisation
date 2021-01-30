@@ -20,6 +20,7 @@ optimizer.maximize(
     init_points=2,
     n_iter=10,
 )
+
 xlist = []
 ylist = []
 for res in enumerate(optimizer.res):
@@ -36,6 +37,7 @@ for i in range(100):
     for j in range(100):
         f[i][j]=environment_array(x[i], y[j])
 
+
 plt.contourf(x_1, y_1, f)
 plt.figure(1)
 fig = plt.figure(1)
@@ -50,16 +52,14 @@ ani = FuncAnimation(fig, animate, frames=12, interval=500)
 
 plt.colorbar()
 
-#for i in range(12):
 
-    #plt.annotate('x'+str(i+1),(ylist[i],(xlist[i])))
 print(np.max(f))
 plt.xlim((2,4))
 plt.ylim((40,65))
 plt.xlabel('Clamping Pressure (Bar)')
 plt.ylabel('Vibration Amplitude (micrometres)')
 
-ani.save('GIF of Process.gif', writer = 'imagemagick', fps = 5 )
+ani.save('GIF of Process.gif', writer = 'imagemagick', fps = 1 )
 
 plt.show()
 

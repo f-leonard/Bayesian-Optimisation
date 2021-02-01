@@ -152,5 +152,3 @@ plt.ioff()
 for i in range(50):
     bo.maximize(init_points=0, n_iter=1, acq='ucb', kappa=10, **gp_params)
     plot_2d("{:03}".format(len(bo.X)))
-
-

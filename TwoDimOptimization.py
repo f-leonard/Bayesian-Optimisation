@@ -3,10 +3,19 @@ import numpy as np
 from TwoDimEnvironmentbc import environment_array
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
-from matplotlib import rcParams
+from matplotlib import gridspec
+
 
 def black_box_function(x, y):
     return environment_array(x,y)
+
+def posterior(optimizer, x_obs, y_obs, grid):
+    optimizer._gp.fit(x_obs, y_obs)
+
+    mu, sigma = optimizer._gp.predict(grid, return_std=True)
+    return mu, sigma
+
+
 
 pbounds = {'x': (40, 65), 'y': (2, 4)}
 optimizer = BayesianOptimization(
@@ -21,9 +30,12 @@ optimizer.maximize(
     n_iter=10,
 )
 
+
+
 xlist = []
 ylist = []
 for res in enumerate(optimizer.res):
+    print(optimizer.res)
     xlist.append(float(res[1].get('params').get('x')))
     ylist.append(float(res[1].get('params').get('y')))
 

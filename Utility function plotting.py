@@ -18,7 +18,7 @@ plt.show()
 
 optimizer = BayesianOptimization(target, {'c': (2, 4)}, random_state=27)
 
-optimizer.maximize(init_points = 2, n_iter = 0, kappa = 5)
+optimizer.maximize(init_points = 2, n_iter = 0, kappa = 5,xi=0)
 
 
 def posterior(optimizer, x_obs, y_obs, grid):
@@ -74,16 +74,37 @@ def plot_gp(optimizer, x, y):
 plot_gp(optimizer, c, y)
 
 optimizer.maximize(init_points=0, n_iter=1)
-plot_gp(optimizer, c, y)
+#plot_gp(optimizer, c, y)
+
+utility_function= UtilityFunction(kind = 'ei', kappa = 5, xi = 0.001)
+plt.plot(c,utility_function.utility(c,optimizer._gp, 0),label = '1')
+print('The max is: '+str(max(utility_function.utility(c,optimizer._gp, 0))))
+g = np.array([2.75]).reshape(-1,1)
+print('Returning a single point: '+str(float(utility_function.utility(g,optimizer._gp,0))))
+
 
 optimizer.maximize(init_points=0, n_iter=1)
-plot_gp(optimizer, c, y)
+print('The max is: '+str(max(utility_function.utility(c,optimizer._gp, 0))))
+plt.plot(c,utility_function.utility(c,optimizer._gp, 0),label = '2')
+#plot_gp(optimizer, c, y)
 
 optimizer.maximize(init_points=0, n_iter=1)
-plot_gp(optimizer, c, y)
+print('The max is: '+str(max(utility_function.utility(c,optimizer._gp, 0))))
+plt.plot(c,utility_function.utility(c,optimizer._gp, 0),label = '3')
+#plot_gp(optimizer, c, y)
 
 optimizer.maximize(init_points=0, n_iter=1)
-plot_gp(optimizer, c, y)
+print('The max is: '+str(max(utility_function.utility(c,optimizer._gp, 0))))
+#plot_gp(optimizer, c, y)
+plt.plot(c,utility_function.utility(c,optimizer._gp, 0),label = '4')
 
 optimizer.maximize(init_points=0, n_iter=1)
-plot_gp(optimizer, c, y)
+print('The max is: '+str(max(utility_function.utility(c,optimizer._gp, 0))))
+#plot_gp(optimizer, c, y)
+#plt.plot(c,utility_function.utility(c,optimizer._gp, 0))
+plt.plot(c,utility_function.utility(c,optimizer._gp, 0),label = '5')
+
+utility_function = UtilityFunction(kind= 'ei', kappa = 5, xi=0.001)
+plt.legend()
+plt.savefig('1D Utility Functions')
+plt.show()

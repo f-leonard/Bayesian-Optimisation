@@ -11,16 +11,30 @@ def target(x,y):
     return environment_array(x,y)
 
 optimizer = BayesianOptimization(target, {'y': (2, 4),'x':(40,65)}, random_state=112)
-optimizer.maximize(init_points=int(input('Enter the number of random steps: ')),n_iter=0)
+#optimizer.maximize(init_points=int(input('Enter the number of random steps: ')),n_iter=0)
+def probe_point(x,y):
+    return optimizer.probe(params={"x": x, "y": y},lazy=True,)
 
 x = np.linspace(40,65,100)
 y = np.linspace(2,4,100)
+
+probe_point(np.min(x),np.max(y))
+probe_point(np.max(x),np.max(y))
+probe_point(np.max(x),np.min(y))
+
+mid = int(len(x)/2)
+probe_point(x[mid],y[mid])
+optimizer.maximize(n_iter=0, init_points = 0)
+
+
 
 x_1, y_1 = np.meshgrid(y,x)
 
 def utilitytarget(xtarget,ytarget):
     xyparam = np.array([[xtarget,ytarget]])
     return float((utility_function.utility(xyparam, optimizer._gp, 0)))
+
+
 
 f = np.zeros((100,100))
 i = 0
@@ -52,13 +66,18 @@ DATA = longlist.reshape(optsteps,100,100)
 fig,ax = plt.subplots()
 
 def animate(i):
-       ax.clear()
-       ax.contourf(x_1,y_1,DATA[i])
-       ax.set_title('Optimisation Step '+'%01d'%(i+1))
-       ax.set_xlim(2,4)
-       ax.set_ylim(40,65)
+    ax.clear()
+    ax.contourf(x_1,y_1,DATA[i])
+    ax.set_title('Optimisation Step '+'%01d'%(i+1))
+    ax.set_xlabel('Clamping pressure (bar)')
+    ax.set_ylabel('Vibration Amplitude (micrometres)')
+
+
+    return ax
 
 interval = 2#in seconds
 ani = animation.FuncAnimation(fig,animate,optsteps,interval=interval*1e+3,blit=False)
+
 ani.save('GIF of Utility Function.gif', writer = 'imagemagick', fps = 1 )
+fig.colorbar(ax.contourf(x_1, y_1, DATA[optsteps-1]))
 plt.show()

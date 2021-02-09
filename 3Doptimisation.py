@@ -67,7 +67,7 @@ def black_box_function(x, y,z):
     cv.append(c)
     i = i + 1'''
 
-for i in range(100000):
+for i in range(10000):
 
     x = np.random.uniform(1000,4000)
     y = 40
@@ -80,7 +80,7 @@ for i in range(100000):
     cv.append(c)
     i = i + 1
 
-for i in range(100000):
+for i in range(10000):
 
     x = np.random.uniform(1000,4000)
     y = 52.5
@@ -95,7 +95,7 @@ for i in range(100000):
 
 
 
-for i in range(100000):
+for i in range(10000):
 
     x = np.random.uniform(1000,4000)
     y = 65
@@ -108,7 +108,7 @@ for i in range(100000):
     cv.append(c)
     i = i + 1
 
-for i in range(100000):
+for i in range(10000):
 
     x = 2500
     y = np.random.uniform(40,65)
@@ -131,7 +131,14 @@ optimizer = BayesianOptimization(
     verbose=2, # verbose = 1 prints only when a maximum is observed, verbose = 0 is silent
     random_state=249
 )
-optimizer.maximize(init_points = 5, n_iter = 20)
+def probe_point(x,y,z):
+    return optimizer.probe(params={"x": x, "y": y, "z":z},lazy=True,)
+
+probe_point(4000,65,4)
+probe_point(4000,65,2)
+probe_point(1000,65,2)
+probe_point(1500,50,3)
+optimizer.maximize(init_points = 3, n_iter = 20)
 
 xlist = []
 ylist = []

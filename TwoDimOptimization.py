@@ -82,7 +82,8 @@ plt.ylabel('Vibration Amplitude (micrometres)')
 ani.save('GIF of Process.gif', writer = 'imagemagick', fps = 1 )
 
 plt.show()
-print(xlist)
+
+
 
 
 

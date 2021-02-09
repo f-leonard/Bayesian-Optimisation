@@ -59,12 +59,11 @@ def array_input(b,c):
     i = 0
     result_list = []
 
-    while i < 1000:
+    while i < 10000:
         result_list.append(float(environment(((b[i]-45)/20),(c[i]-2)/2)))
         i = i + 1
     return result_list
 def environment_array(b,c):
 
     return array_input(b,c) if type(c)== np.ndarray else float(environment(((b-45)/20),((c-2)/2)))
-
 

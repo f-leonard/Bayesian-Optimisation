@@ -70,10 +70,10 @@ def plot_gp(optimizer, x, y):
 
     axis.legend(loc=2, bbox_to_anchor=(1.01, 1), borderaxespad=0.)
     acq.legend(loc=2, bbox_to_anchor=(1.01, 1), borderaxespad=0.)
-
+optimizer.maximize(init_points=2, n_iter=6)
 plot_gp(optimizer, c, y)
 
-optimizer.maximize(init_points=0, n_iter=1)
+
 #plot_gp(optimizer, c, y)
 
 utility_function= UtilityFunction(kind = 'ei', kappa = 5, xi = 0.001)

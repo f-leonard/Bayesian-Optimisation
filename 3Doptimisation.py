@@ -1,7 +1,7 @@
 from mpl_toolkits.mplot3d import Axes3D
 import matplotlib.pyplot as plt
 import numpy as np
-from ThreeDEnv import environment_array
+from ComplexEnv import environment_array
 from bayesian_optimization import BayesianOptimization
 
 fig = plt.figure()
@@ -42,7 +42,7 @@ for i in range(10000):
     cv.append(c)
     i = i + 1
 
-for i in range(100000):
+for i in range(10000):
 
     x = 1000
     y = np.random.uniform(40,65)
@@ -55,7 +55,7 @@ for i in range(100000):
     cv.append(c)
     i = i + 1
 
-for i in range(100000):
+for i in range(10000):
 
     x = 4000
     y = np.random.uniform(40,65)
@@ -81,7 +81,7 @@ for i in range(10000):
     cv.append(c)
     i = i + 1
 
-'''for i in range(100000):
+for i in range(10000):
 
     x = np.random.uniform(1000,4000)
     y = 52.5
@@ -92,7 +92,7 @@ for i in range(10000):
     b.append(y)
     j.append(z)
     cv.append(c)
-    i = i + 1'''
+    i = i + 1
 
 
 
@@ -121,15 +121,19 @@ for i in range(10000):
     j.append(z)
     cv.append(c)
     i = i + 1'''
-
+cv = np.array(cv)
+'''Here is where the gaussian noise is created and added to the plot'''
+'''noise = np.random.normal(0,100,cv.shape)
+cv = cv +noise'''
 img = ax.scatter(a, b, j,c=cv, cmap=plt.jet())
 fig.colorbar(img)
+print(max(cv))
 
-'''pbounds = {'y': (40, 65), 'z': (2, 4),'x':(1000,4000)}
+pbounds = {'y': (40, 65), 'z': (2, 4),'x':(1000,4000)}
 optimizer = BayesianOptimization(
     f=black_box_function,
     pbounds=pbounds,
-    verbose=2, # verbose = 1 prints only when a maximum is observed, verbose = 0 is silent
+    verbose=1, # verbose = 1 prints only when a maximum is observed, verbose = 0 is silent
     random_state=249
 )
 def probe_point(x,y,z):
@@ -149,7 +153,7 @@ for res in enumerate(optimizer.res):
     ylist.append(float(res[1].get('params').get('y')))
     zlist.append(float(res[1].get('params').get('z')))
 
-ax.scatter(xlist,ylist,zlist,marker='+')'''
+ax.scatter(xlist,ylist,zlist,marker='+')
 
 ax.set_xlabel('Welding Energy (J)')
 ax.set_ylabel('Vibration amplitude(um)')
@@ -157,4 +161,3 @@ ax.set_zlabel('Clamping pressure (bar)')
 
 plt.savefig('4D plot of environment')
 plt.show()
-print()

@@ -10,7 +10,9 @@ from Graph_LinearRegression import graphLinearRegression
 from Artificial_Neural_Network import get_model,model_fit
 
 
-
+d = 0.1
+a = 1
+b = 1
 class Agent(object):
 
     def agent(self):
@@ -26,7 +28,7 @@ class Agent(object):
             d = (d - 800) / 1760
 
 
-            result=environment(a,b,c,d)  #LSS according to the environment
+            result=environment(c)  #LSS according to the environment
             data_train.append(a)   #the parameters are written in the list
             data_train.append(b)
             data_train.append(c)
@@ -134,7 +136,7 @@ class Agent(object):
             graphLinearRegression(results,predictions,"Experimental Values (N)","Predicted Values (N)","Linear regression for final model",save=True)
             graphLinearRegression(results,pred,"Experimental Values (N)","Predicted Values (N)","Linear regression for each iteration")
             Final_weights=pandas.DataFrame(data=best_weights)
-            Final_weights.to_csv('final_weights.csv')  #To store the weights
+            Final_weights.to_csv('final_weights.csv',save=True)  #To store the weights
 #This is the funciton that neesds to be replaced by bayesian optimisation.
     def improved_LSS(self,a,b,c,d,parameter):   #to increase or decrease a parameter chosen randomly
 

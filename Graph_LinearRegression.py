@@ -4,6 +4,7 @@ from sklearn.linear_model import LinearRegression
 import matplotlib.pyplot as plt
 import pandas
 from scipy import stats
+import numpy as np
 
 
 def graphLinearRegression( X, Y, X_label, Y_label, title, save=True):
@@ -29,6 +30,7 @@ def graphLinearRegression( X, Y, X_label, Y_label, title, save=True):
     plt.scatter(X, Y)
     plt.plot(X.iloc[:, 0], Y_pred, color='red')
     plt.title(label=title, loc='center', fontname='Arial', fontsize='25', fontweight='bold')
+
     if save == True:
         plt.savefig("Linear Regression.png")
     return

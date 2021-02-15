@@ -51,7 +51,7 @@ def utilitytarget(xtarget,ytarget,ztarget):
 
 
 
-for i in range(100000):
+for i in range(10000):
 
     x = np.random.uniform(1000,4000)
     y = 40
@@ -67,7 +67,7 @@ for i in range(100000):
 
 
 
-for i in range(100000):
+for i in range(10000):
 
     x = np.random.uniform(1000,4000)
     y = np.random.uniform(40,65)
@@ -80,7 +80,7 @@ for i in range(100000):
     cv.append(c)
     i = i + 1
 
-for i in range(100000):
+for i in range(10000):
 
     x = np.random.uniform(1000,4000)
     y = np.random.uniform(40,65)
@@ -93,7 +93,7 @@ for i in range(100000):
     cv.append(c)
     i = i + 1
 
-for i in range(100000):
+for i in range(10000):
 
     x = 1000
     y = np.random.uniform(40,65)
@@ -106,7 +106,7 @@ for i in range(100000):
     cv.append(c)
     i = i + 1
 
-for i in range(100000):
+for i in range(10000):
 
     x = 4000
     y = np.random.uniform(40,65)
@@ -121,7 +121,7 @@ for i in range(100000):
 
 
 
-for i in range(100000):
+for i in range(10000):
 
     x = np.random.uniform(1000,4000)
     y = 65

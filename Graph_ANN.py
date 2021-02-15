@@ -3,6 +3,7 @@
 
 import matplotlib.pyplot as plt
 from matplotlib import font_manager
+import numpy as np
 
 def graphAnn( X, Y, save=True):
     plt.figure(figsize=(16, 10))
@@ -18,6 +19,8 @@ def graphAnn( X, Y, save=True):
     plt.tick_params(axis='both', which='major', direction='inout', length=12.5, width=2, labelsize=16)
     plt.xlim(xmin=0)
     plt.title(label="ANN Performance", loc='center', fontname='Arial', fontsize='25', fontweight='bold')
+    plt.show()
     if save == True:
         plt.savefig("ANN.png")
     return
+

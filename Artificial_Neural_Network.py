@@ -13,6 +13,7 @@ def get_model():
     model.add(layers.Dense(neurons, activation="relu", name="hidden_layer" ,use_bias=True))
     model.add(layers.Dense(1, activation="linear", name="output_layer", use_bias=False))
     model.compile(keras.optimizers.Adam(learning_rate=0.05), loss='mse' ,metrics=['mse' ] )
+    plot_model(model, to_file='model_plot.png', show_shapes=True, show_layer_names=True)
     print(model.summary())
     return model
 

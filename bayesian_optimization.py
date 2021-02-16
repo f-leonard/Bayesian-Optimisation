@@ -189,7 +189,7 @@ class BayesianOptimization(Observable):
                  n_iter=25,
                  acq='ei',
                  kappa=10,
-                 xi=0.1,
+                 xi=1,
                  **gp_params):
         """Mazimize your function"""
         self._prime_subscriptions()

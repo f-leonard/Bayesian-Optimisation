@@ -13,8 +13,8 @@ while i < len(data_matrix):
     a = 1000+(30*i)
     b = 40+(0.25*i)
     c = 2+(0.02*i)
-    d = abs((a-2500)) +abs((b-52.5))+abs((c-2.000))
-    d = d*-1
+    d = abs(a - 100*b +c**4)
+
 
 
 

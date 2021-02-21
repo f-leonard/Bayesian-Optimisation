@@ -52,3 +52,4 @@ def array_input(a, b, c):
 def environment_array(a, b, c):
     return array_input(a, b, c) if type(c) == np.ndarray else float(environment(a, b ,c))
 
+print(environment(1000,52.5,0))

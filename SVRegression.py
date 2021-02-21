@@ -4,11 +4,11 @@ from sklearn.svm import SVR
 import pandas as pd
 from sklearn.preprocessing import StandardScaler
 from bayesian_optimization import BayesianOptimization
-datasets = pd.read_csv('ExperimentData.csv')
+datasets = pd.read_csv('Inputs_outputs.csv')
 X = datasets.iloc[:, 0:3].values
 Y = datasets.iloc[:, 3].values
 
-noise = np.random.normal(0,100,100)
+noise = np.random.normal(0,100,99)
 
 Y = Y+noise
 
@@ -118,6 +118,7 @@ ax.scatter(xlist,ylist,zlist,marker='o')
 
 cv = np.array(cv)
 img = ax.scatter(a, b, j,c=cv, cmap=plt.jet())
+ax.view_init(elev=13., azim=-140)
 fig.colorbar(img)
 print('The maximum value observed on the plot was', max(cv))
 ax.set_xlabel('Welding Energy (J)')

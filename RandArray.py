@@ -42,17 +42,4 @@ inputs_outputs = np.array(list(zip(xarr,yarr,zarr, outputs)))
 print(inputs_outputs)
 
 np.savetxt('Inputs_outputs.csv', inputs_outputs, delimiter=',')
-data_arr= np.sort(np.random.uniform(1000,3000,100))
 
-
-
-datasets = pd.read_csv('ExperimentData.csv')
-X = inputs
-Y = outputs
-
-
-noise = np.random.normal(0,100,100)
-
-Y = Y+noise
-
-Y = Y.reshape(-1,1)

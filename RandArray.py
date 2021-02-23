@@ -17,6 +17,8 @@ eighty = np.sort(np.random.uniform(800,1000,10))
 ninety = np.sort(np.random.uniform(1000,1320, 10))
 onehundred = np.flip(np.sort(np.random.uniform(1320, 200,10)))
 outputs = np.concatenate((ten,twenty,thirty,forty,fifty,sixty,seventy,eighty,ninety,onehundred))
+noise = np.random.normal(0,100,100)
+outputs =outputs +noise
 
 i = 0
 xarr = []

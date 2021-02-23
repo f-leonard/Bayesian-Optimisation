@@ -3,13 +3,15 @@ import matplotlib.pyplot as plt
 from sklearn.svm import SVR
 import pandas as pd
 from sklearn.preprocessing import StandardScaler
-from bayesian_optimization import BayesianOptimization
+from bayesian_optimization import BayesianOptimization, UtilityFunction
 datasets = pd.read_csv('Inputs_outputs.csv')
 X = datasets.iloc[:, 0:3].values
 Y = datasets.iloc[:, 3].values
 
 
+noise = np.random.normal(0,100,99)
 
+Y = Y+noise
 
 Y = Y.reshape(-1,1)
 
@@ -26,9 +28,11 @@ Y = sc_Y.fit_transform(Y)
 regressor = SVR(kernel = 'rbf')
 regressor.fit(X,Y)
 
-
-def prediction(x,y,z):
+utility_function = UtilityFunction(kind="ei",xi=0,kappa=0)
+def target(x,y,z):
     return float(sc_Y.inverse_transform(regressor.predict(sc_X.transform(np.array([x,y,z]).reshape(1,-1)))))
+
+optimizer = BayesianOptimization(target, {'z': (2, 4),'y':(40,65),'x':(1000,4000)}, random_state=250)
 
 fig = plt.figure()
 ax = fig.add_subplot(111, projection='3d')
@@ -37,13 +41,16 @@ a = []
 b = []
 j = []
 cv = []
+def utilitytarget(xtarget,ytarget,ztarget):
+    xyparam = np.array([[xtarget,ytarget,ztarget]])
+    return float((utility_function.utility(xyparam, optimizer._gp, 0)))
 
 def slicex(x):
     for i in range(50000):
         x = x
         y = np.random.uniform(40, 65)
         z = np.random.uniform(2, 4)
-        c = prediction(x, y, z)
+        c = utilitytarget(x, y, z)
         i = i + 1
         a.append(x)
         b.append(y)
@@ -55,7 +62,7 @@ def slicey(y):
         x = np.random.uniform(1000,4000)
         y = y
         z = np.random.uniform(2, 4)
-        c = prediction(x, y, z)
+        c = utilitytarget(x, y, z)
         i = i + 1
         a.append(x)
         b.append(y)
@@ -68,7 +75,7 @@ def slicez(z):
         x = np.random.uniform(1000,4000)
         y = np.random.uniform(40, 65)
         z = z
-        c = prediction(x, y, z)
+        c = utilitytarget(x, y, z)
         i = i + 1
         a.append(x)
         b.append(y)
@@ -79,9 +86,9 @@ def slicez(z):
 
 pbounds = {'y': (40, 65), 'z': (2, 4),'x':(1000,4000)}
 optimizer = BayesianOptimization(
-    f=prediction,
+    f=target,
     pbounds=pbounds,
-    verbose=1, # verbose = 1 prints only when a maximum is observed, verbose = 0 is silent
+    verbose=2, # verbose = 1 prints only when a maximum is observed, verbose = 0 is silent
     random_state=999
 )
 def probe_point(x,y,z):
@@ -113,6 +120,12 @@ slicex(xlist[max_index])
 slicey(ylist[max_index])
 slicez(zlist[max_index])
 
+'''Select Planes for slicing'''
+
+
+
+
+
 img = ax.scatter(a, b, j,c=cv, cmap=plt.jet())
 ax.view_init(elev=13., azim=-140)
 fig.colorbar(img)
@@ -124,4 +137,3 @@ ax.set_zlabel('Clamping pressure (bar)')
 
 plt.savefig('4D plot of environment')
 plt.show()
-

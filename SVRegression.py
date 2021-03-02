@@ -108,10 +108,13 @@ for res in enumerate(optimizer.res):
 datalist = np.array(datalist)
 max_element = np.where(datalist == np.amax(datalist))
 
-max_index = int(max_element[0])
+'''max_index = int(max_element[0])
 slicex(xlist[max_index])
 slicey(ylist[max_index])
-slicez(zlist[max_index])
+slicez(zlist[max_index])'''
+slicex(2341.9193)
+slicey(59.8873)
+slicez(3.0090)
 
 img = ax.scatter(a, b, j,c=cv, cmap=plt.jet())
 ax.view_init(elev=13., azim=-140)

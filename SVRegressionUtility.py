@@ -9,9 +9,7 @@ X = datasets.iloc[:, 0:3].values
 Y = datasets.iloc[:, 3].values
 
 
-noise = np.random.normal(0,100,99)
 
-Y = Y+noise
 
 Y = Y.reshape(-1,1)
 
@@ -88,7 +86,7 @@ pbounds = {'y': (40, 65), 'z': (2, 4),'x':(1000,4000)}
 optimizer = BayesianOptimization(
     f=target,
     pbounds=pbounds,
-    verbose=2, # verbose = 1 prints only when a maximum is observed, verbose = 0 is silent
+    verbose=1, # verbose = 1 prints only when a maximum is observed, verbose = 0 is silent
     random_state=999
 )
 def probe_point(x,y,z):
@@ -99,7 +97,7 @@ probe_point(4000,65,2)
 probe_point(3000,40,2)
 probe_point(1000,40,2)
 probe_point(2500,52.5,3)'''
-optimizer.maximize(init_points = 7, n_iter = 20)
+optimizer.maximize(init_points = 7, n_iter = 14)
 
 xlist = []
 ylist = []
@@ -121,7 +119,6 @@ slicey(ylist[max_index])
 slicez(zlist[max_index])
 
 '''Select Planes for slicing'''
-
 
 
 

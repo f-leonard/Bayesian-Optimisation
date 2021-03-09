@@ -187,8 +187,8 @@ class BayesianOptimization(Observable):
     def maximize(self,
                  init_points=5,
                  n_iter=25,
-                 acq='ei',
-                 kappa=5,
+                 acq='ucb',
+                 kappa=10,
                  xi=0,
                  **gp_params):
         """Mazimize your function"""

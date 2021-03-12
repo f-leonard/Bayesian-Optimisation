@@ -27,7 +27,7 @@ def function(x,y,z):
 
     return float(interpolating_function(pts))
 
-utility_function = UtilityFunction(kind="ei",xi=0.25,kappa=0)
+utility_function = UtilityFunction(kind="ei",xi=0.8,kappa=0)
 optimizer = BayesianOptimization(function, {'z': (2, 4),'y':(40,65),'x':(1000,4000)}, random_state=250)
 
 a = []
@@ -42,7 +42,7 @@ def utilitytarget(xtarget,ytarget,ztarget):
 
 
 def slicex(x):
-    for i in range(5000):
+    for i in range(10000):
         x = x
         y = np.random.uniform(40, 65)
         z = np.random.uniform(2, 4)
@@ -54,7 +54,7 @@ def slicex(x):
         cv.append(c)
         i = i + 1
 def slicey(y):
-    for i in range(5000):
+    for i in range(10000):
         x = np.random.uniform(1000,4000)
         y = y
         z = np.random.uniform(2, 4)
@@ -67,7 +67,7 @@ def slicey(y):
         i = i + 1
 
 def slicez(z):
-    for i in range(5000):
+    for i in range(10000):
         x = np.random.uniform(1000,4000)
         y = np.random.uniform(40, 65)
         z = z
@@ -95,7 +95,9 @@ probe_point(4000,65,2)
 probe_point(3000,40,2)
 probe_point(1000,40,2)
 probe_point(2500,52.5,3)'''
-optimizer.maximize(init_points = 100, n_iter = 30)
+probe_point(3250,40,4)
+optimizer.maximize(init_points = 2, n_iter = 15,acq = 'ucb',xi=0.3,kappa =5)
+
 
 xlist = []
 ylist = []
@@ -121,11 +123,10 @@ slicey(ylist[max_index])
 slicez(zlist[max_index])'''
 
 '''Select Planes for slicing'''
-slicex(1000)
-slicex(4000)
+slicex(3250)
+
+
 slicey(40)
-slicey(65)
-slicez(2)
 slicez(4)
 
 
@@ -138,6 +139,5 @@ print('The maximum value observed by bayesian optimisation was', np.max(datalist
 ax.set_xlabel('Welding Energy (J)')
 ax.set_ylabel('Vibration amplitude(um)')
 ax.set_zlabel('Clamping pressure (bar)')
-
-plt.savefig('4D plot of environment')
+plt.title('Bayesian Optimisation Utility Function')
 plt.show()

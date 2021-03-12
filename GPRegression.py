@@ -1,14 +1,14 @@
 from itertools import product
 from sklearn.gaussian_process import GaussianProcessRegressor
-from sklearn.gaussian_process.kernels import RBF, ConstantKernel as C,Matern
+from sklearn.gaussian_process.kernels import RBF, ConstantKernel as C,Matern,WhiteKernel
 import numpy as np
 from scipy.interpolate import RegularGridInterpolator
 import pandas as pd
 import matplotlib.pyplot as plt
 np.random.seed(1)
-datacsv = pd.read_csv('Inputs_outputs.csv')
-data = datacsv.iloc[:, 3].values
-data = data[7000:8000]
+datacsv = pd.read_csv('Inputs_outputs.csv',header = None)
+data = datacsv.iloc[:, 0].values
+data = data[0:1000]
 data = data[1::8]
 data = data.reshape(5,5,5)
 
@@ -39,8 +39,9 @@ for i in range(len(X)):
 
 y = np.array(y)
 
-kernel = C(1.0, (1, 1e9)) * Matern([5,5,5], (1e-3, 1e5))
-gp = GaussianProcessRegressor(kernel=kernel, n_restarts_optimizer=15)
+kernel = C(1.0, (1, 1e3)) * Matern([1,1,1], (1e-5, 1e5))
+
+gp = GaussianProcessRegressor(kernel=kernel, n_restarts_optimizer=30,alpha=1)
 
 gp.fit(X, y)
 
@@ -78,7 +79,7 @@ cv = []
 
 
 def slicex(x):
-    for i in range(10000):
+    for i in range(20000):
         x = x
         y = np.random.uniform(40, 65)
         z = np.random.uniform(2, 4)
@@ -90,7 +91,7 @@ def slicex(x):
         cv.append(c)
         i = i + 1
 def slicey(y):
-    for i in range(10000):
+    for i in range(20000):
         x = np.random.uniform(1000,4000)
         y = y
         z = np.random.uniform(2, 4)
@@ -103,7 +104,7 @@ def slicey(y):
         i = i + 1
 
 def slicez(z):
-    for i in range(10000):
+    for i in range(20000):
         x = np.random.uniform(1000,4000)
         y = np.random.uniform(40, 65)
         z = z
@@ -114,9 +115,9 @@ def slicez(z):
         j.append(z)
         cv.append(c)
         i = i + 1
-slicex(3192)
-slicey(59.63)
-slicez(2.478)
+slicex(2392)
+slicey(52.2035)
+slicez(3.5758)
 
 fig = plt.figure()
 ax = fig.add_subplot(111, projection='3d')
@@ -128,6 +129,5 @@ print('The maximum value observed on the plot was', max(cv))
 ax.set_xlabel('Welding Energy (J)')
 ax.set_ylabel('Vibration amplitude(um)')
 ax.set_zlabel('Clamping pressure (bar)')
-
-plt.savefig('4D plot of environment')
+plt.title('Bayesian Optimisation Predicted Environment')
 plt.show()

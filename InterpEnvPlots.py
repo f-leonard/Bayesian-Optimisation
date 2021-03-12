@@ -5,8 +5,8 @@ import matplotlib.pyplot as plt
 from bayesian_optimization import BayesianOptimization
 
 datacsv = pd.read_csv('Inputs_outputs.csv')
-data = datacsv.iloc[:, 3].values
-data = data[5000:6000]
+data = datacsv.iloc[:, 0].values
+data = data[0:1000]
 data = data[1::8]
 data = data.reshape(5,5,5)
 
@@ -29,7 +29,7 @@ j = []
 cv = []
 
 def slicex(x):
-    for i in range(5000):
+    for i in range(10000):
         x = x
         y = np.random.uniform(40, 65)
         z = np.random.uniform(2, 4)
@@ -41,7 +41,7 @@ def slicex(x):
         cv.append(c)
         i = i + 1
 def slicey(y):
-    for i in range(5000):
+    for i in range(10000):
         x = np.random.uniform(1000,4000)
         y = y
         z = np.random.uniform(2, 4)
@@ -54,7 +54,7 @@ def slicey(y):
         i = i + 1
 
 def slicez(z):
-    for i in range(5000):
+    for i in range(10000):
         x = np.random.uniform(1000,4000)
         y = np.random.uniform(40, 65)
         z = z
@@ -65,22 +65,27 @@ def slicez(z):
         j.append(z)
         cv.append(c)
 
-'''slicex(1000)
-slicex(4000)
-slicey(40)
-slicey(65)
-slicez(2)
-slicez(4)'''
-for i in range(10000):
-    x = np.random.uniform(1000, 4000)
-    y = np.random.uniform(40, 65)
-    z = np.random.uniform(2,4)
+
+'''for i in range(100000):
+    x = np.random.uniform(2450, 2600)
+    y = np.random.uniform(50, 54)
+    z = np.random.uniform(3,3.7)
     c = function(x, y, z)
 
     a.append(x)
     b.append(y)
     j.append(z)
-    cv.append(c)
+    cv.append(c)'''
+
+slicex(2500.1905)
+slicey(52.50137)
+slicez(3.50206)
+
+'''Max value is 3212'''
+max_element = np.where(cv == np.amax(cv))
+
+max_index = int(max_element[0])
+print('The global max is located at ',a[max_index],b[max_index],j[max_index])
 
 fig = plt.figure()
 ax = fig.add_subplot(111, projection='3d')

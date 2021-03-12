@@ -291,6 +291,7 @@ class DiscreteBayesianOptimization(BayesianOptimization):
         self.partner_space = PartnerSpace(f, prange, random_state)
 
         length_scale = list(self._space._steps)
+        print(length_scale)
         #nu controls 'The smoothness of the learned function. The smaller the nu the less smooth the learned function is
         #nu= inf the kernel becomes equivalent to the RBF kernel. And for nu = 0.5 to the absolute exponential kernel
         #nu = 1.5 once differentiable functions
@@ -298,7 +299,7 @@ class DiscreteBayesianOptimization(BayesianOptimization):
         #If you pick a value outside of these the computational cost will be approx 10x larger as you will have to
         #evaluate the modified Bessel function. nu is kept fixed to its original value and not optimised
         kernel = Matern(length_scale=length_scale,
-                        length_scale_bounds=(1e-01, 1e4),
+                        length_scale_bounds=(1e-01, 1e5),
                         nu=2.5) * \
                  ConstantKernel(1.0, (0.5, 5)) + \
                  WhiteKernel(noise_level=0.1,
@@ -308,6 +309,7 @@ class DiscreteBayesianOptimization(BayesianOptimization):
                                             normalize_y=False,
                                             n_restarts_optimizer=10 * self.space.dim,
                                             random_state=self._random_state)
+
 
 
     def probe(self, params, lazy=True):

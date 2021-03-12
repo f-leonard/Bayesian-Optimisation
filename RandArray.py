@@ -6,18 +6,18 @@ from sklearn.preprocessing import StandardScaler
 from bayesian_optimization import BayesianOptimization
 
 
-ten= np.sort(np.random.uniform(1500,1900,10000))
-twenty = np.flip(np.sort(np.random.uniform(1900,1700,10000)))
-thirty = np.sort(np.random.uniform(1700,2250,10000))
-forty = np.flip(np.sort(np.random.uniform(2250,1600,10000)))
-fifty = np.sort(np.random.uniform(1600,3200,10000))
-sixty = np.flip(np.sort(np.random.uniform(3200,3100,10000)))
-seventy = np.flip(np.sort(np.random.uniform(3100,800,10000)))
-eighty = np.sort(np.random.uniform(800,1000,10000))
-ninety = np.sort(np.random.uniform(1000,1320, 10000))
-onehundred = np.flip(np.sort(np.random.uniform(1320, 200,10000)))
+ten= np.sort(np.random.uniform(500,1900,100))
+twenty = np.flip(np.sort(np.random.uniform(1900,1700,100)))
+thirty = np.sort(np.random.uniform(1700,2250,100))
+forty = np.flip(np.sort(np.random.uniform(2250,1600,100)))
+fifty = np.sort(np.random.uniform(1600,3200,100))
+sixty = np.flip(np.sort(np.random.uniform(3200,500,100)))
+seventy = np.flip(np.sort(np.random.uniform(2700,800,100)))
+eighty = np.sort(np.random.uniform(800,1000,100))
+ninety = np.sort(np.random.uniform(1000,1320, 100))
+onehundred = np.flip(np.sort(np.random.uniform(1320, 200,100)))
 outputs = np.concatenate((ten,twenty,thirty,forty,fifty,sixty,seventy,eighty,ninety,onehundred))
-noise = np.random.normal(0,100,100000)
+noise = np.random.normal(0,100,1000)
 outputs =outputs +noise
 
 
@@ -106,7 +106,7 @@ zinputs = np.concatenate((zten,ztwenty,zthirty,zforty,zfifty,zsixty,zseventy,zei
 '''yarr = np.sort(yarr)
 zarr = np.sort(zarr)
 inputs = np.array(list(zip(yinputs,xinputs,zinputs)))
-inputs_outputs = np.array(list(zip(yinputs,xinputs,zinputs, outputs)))
+inputs_outputs = np.array(list(zip(yinputs,xinputs,zinputs, outputs)))'''
 
-np.savetxt('Inputs_outputs.csv', inputs_outputs, delimiter=',')'''
+np.savetxt('Inputs_outputs.csv', outputs, delimiter=',')
 

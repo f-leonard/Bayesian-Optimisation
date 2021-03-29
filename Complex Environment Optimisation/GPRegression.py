@@ -40,20 +40,11 @@ for i in range(len(X)):
     y.append(f(X[i][0],X[i][1],X[i][2]))
 
 y = np.array(y)
-nu_array = np.linspace(0,5,5)
-alpha_array = np.linspace(1e-5,1e-3,5)
-xx,yy = np.meshgrid(nu_array,alpha_array)
+
 kernel = Matern()
 gp = GaussianProcessRegressor(kernel=kernel, n_restarts_optimizer=25,alpha=3e-4)
 
 gp.fit(X, y)
-print(xx)
-print(yy)
-
-
-
-
-
 testdata = []
 functiondata = []
 squarederror = []
@@ -77,7 +68,7 @@ def rmse(nu,alpha):
     print('The root mean squared error is ',np.sqrt(meansquarederror))
     return (float(np.sqrt(meansquarederror)))
 
-rmse(2.5,3e-4)
+rmse(2.5,3)
 
 
 
@@ -132,8 +123,7 @@ ax = fig.add_subplot(111, projection='3d')
 img = ax.scatter(a, b, j,c=cv, cmap=plt.jet())
 ax.view_init(elev=13., azim=-140)
 
-#print('The maximum value observed on the plot was', max(cv))
-#print('The maximum value observed by bayesian optimisation was', np.max(datalist))
+
 ax.set_xlabel('Welding Energy (J)',fontsize = 14)
 ax.set_ylabel('Vibration amplitude ('r'$\mu$m)',fontsize = 14)
 ax.set_zlabel('Clamping pressure (bar)', fontsize = 14)

@@ -90,7 +90,7 @@ class BayesianOptimization(Observable):
         # Internal GP regressor
         self._gp = GaussianProcessRegressor(
             kernel=Matern(nu=2.5),
-            alpha=1e-6,
+            alpha=3e-3,
             normalize_y=True,
             n_restarts_optimizer=25,
             random_state=self._random_state,
@@ -305,7 +305,7 @@ class DiscreteBayesianOptimization(BayesianOptimization):
                  WhiteKernel(noise_level=0.1,
                              noise_level_bounds=(5e-02, 7e-1))
         self._gp = GaussianProcessRegressor(kernel=kernel,
-                                            alpha=1e-6,
+                                            alpha=1e-3,
                                             normalize_y=False,
                                             n_restarts_optimizer=10 * self.space.dim,
                                             random_state=self._random_state)

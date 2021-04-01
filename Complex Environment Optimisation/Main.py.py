@@ -118,8 +118,8 @@ are requested, n_iter specifies how many steps of BO are requested and xi and ka
  Kappa is the parameter used for the exploration exploitation tradeoff in the ucb acquisition function. kappa = 10 
  corresponds with maximum exploration and kappa = 0 corresponds with maximum exploitation.
 '''
-optimizer.maximize(init_points =5, n_iter = 5,acq = 'ei',kappa=10,xi = 0.4,alpha = alpha,normalize_y = True, kernel= kernel)
-optimizer.maximize(init_points =0, n_iter = 5,acq = 'poi',kappa=10,xi = 0,alpha = alpha,normalize_y = True,kernel = kernel)
+optimizer.maximize(init_points = 5, n_iter =5 ,acq = 'ei',kappa=10,xi = 0.4,alpha = alpha,normalize_y = True, kernel= kernel)
+optimizer.maximize(init_points =0, n_iter = 5,acq = 'poi',kappa=0,xi = 0.5 ,alpha = alpha,normalize_y = True,kernel = kernel)
 
 xlist = []
 ylist = []
@@ -175,7 +175,6 @@ img1 = ax1.scatter(a,b,j,c =ucv, cmap = plt.jet())
 ax.view_init(elev=13., azim=-140)
 ax1.view_init(elev=13., azim=-140)
 fig.figsize = (20,20)
-#print('The maximum value observed on the plot was', max(cv))
 print('The maximum value observed by bayesian optimisation was', np.max(datalist))
 ax.set_xlabel('Welding Energy (J)',fontsize = 14)
 ax.set_ylabel('Vibration amplitude ('r'$\mu$m)',fontsize = 14)
@@ -189,9 +188,8 @@ cbar1 = fig.colorbar(img,ax =ax)
 cbar2 = fig.colorbar(img1, ax = ax1)
 cbar1.set_label('LSS (N)', labelpad = -40, y = 1.05, rotation = 0)
 cbar2.set_label('LSS (N)', labelpad = -40, y = 1.05, rotation = 0)
-plt.suptitle('Environment and Acquisition Function Intersected at Predicted Maximum ',fontsize = 18)
+plt.suptitle('Acquisition Function and Environment Intersected at Predicted Maximum',fontsize = 16)
 plt.show()
-
 
 
 
